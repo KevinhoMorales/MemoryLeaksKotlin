@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.albertomarti.memoryleakskotlin"
+    namespace = "com.kevinhomorales.memoryleakskotlin"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.albertomarti.memoryleakskotlin"
+        applicationId = "com.kevinhomorales.memoryleakskotlin"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

@@ -1,4 +1,4 @@
-package com.albertomarti.memoryleakskotlin
+package com.kevinhomorales.memoryleakskotlin
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.albertomarti.memoryleakskotlin
+package com.kevinhomorales.memoryleakskotlin
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
