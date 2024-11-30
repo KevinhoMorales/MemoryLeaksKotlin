@@ -1,20 +1,46 @@
 package com.kevinhomorales.memoryleakskotlin
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.kevinhomorales.memoryleakskotlin.databinding.ActivityMainBinding
+import leakcanary.LeakCanary
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
+    companion object {
+        var leakedContext: MainActivity? = null // Referencia estática (causa el memory leak)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setUpActions()
+        setUpView()
+    }
+
+    private fun setUpView() {
+        leakedContext = this
+        LeakCanary.dumpHeap()
+    }
+
+    private fun setUpActions() {
+        binding.changeTextId.setOnClickListener {
+//            openLeakActivity()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    private fun openLeakActivity() {
+        val intent = Intent(this, LeakActivity::class.java)
+        startActivity(intent)
     }
 }
